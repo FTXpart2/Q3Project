@@ -1,7 +1,6 @@
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,12 +8,12 @@ public class Graph<E> {
     private HashMap<E, HashMap<E, Integer>> graph;
 
     public Graph() {
-        graph = new HashMap<E, HashMap<E, Integer>>();
+        graph = new HashMap<>();
     }
 
     public void addVertex(E vertex) {
         if (!graph.containsKey(vertex)) {
-            graph.put(vertex, new HashMap<E, Integer>());
+            graph.put(vertex, new HashMap<>());
         }
     }
 
@@ -26,7 +25,7 @@ public class Graph<E> {
         graph.get(a).put(b, weight);
         graph.get(b).put(a, weight);
     }
-   
+
     public void removeVertex(E vertex) {
         if (graph.containsKey(vertex)) {
             for (E key : graph.get(graph.remove(vertex)).keySet()) {
@@ -45,6 +44,17 @@ public class Graph<E> {
         }
 
         return graph.get(a).get(b);
+    }
+
+    public Set<E> getVertices() {
+        return graph.keySet();
+    }
+
+    public Set<E> getNeighbors(E vertex) {
+        if (graph.containsKey(vertex)) {
+            return graph.get(vertex).keySet();
+        }
+        return new HashSet<>();
     }
 
     public String toString() {
@@ -66,7 +76,7 @@ public class Graph<E> {
         if (!(graph.containsKey(a) && graph.containsKey(b))) {
             return null;
         }
-       
+
         HashMap<E, Integer> distance = new HashMap<>();
         HashMap<E, E> prev = new HashMap<>();
         HashSet<E> visited = new HashSet<>();
