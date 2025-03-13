@@ -80,6 +80,7 @@ public class Runner {
         graph.addEdge(essen, dortmund, 20);
         graph.addEdge(dortmund, munster, 20);
         graph.addEdge(munster, bielefeld, 200);
+        graph.addEdge(frankfurt, hannover, 400);
         
         // Add more edges here...
 
@@ -90,58 +91,7 @@ public class Runner {
         frame.setLayout(new BorderLayout());
         frame.add(screen, BorderLayout.CENTER);
 
-        JPanel controlPanel = new JPanel();
-        JTextField startField = new JTextField(5);
-        JTextField endField = new JTextField(5);
-        JButton findPathButton = new JButton("Find Path");
-        JTextArea directionsArea = new JTextArea(10, 30);
-        directionsArea.setEditable(false);
-        controlPanel.add(new JLabel("Start:"));
-        controlPanel.add(startField);
-        controlPanel.add(new JLabel("End:"));
-        controlPanel.add(endField);
-        controlPanel.add(findPathButton);
-        controlPanel.add(new JScrollPane(directionsArea));
-        frame.add(controlPanel, BorderLayout.SOUTH);
-
-        findPathButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String startAbbv = startField.getText().toUpperCase();
-                String endAbbv = endField.getText().toUpperCase();
-
-                Location start = null, end = null;
-                for (Location loc : graph.getVertices()) {
-                    if (loc.getAbbv().equals(startAbbv)) {
-                        start = loc;
-                    }
-                    if (loc.getAbbv().equals(endAbbv)) {
-                        end = loc;
-                    }
-                }
-
-                if (start != null && end != null) {
-                    List<Location> path = graph.getPath(start, end);
-                    int totalDistance = 0;
-                    StringBuilder directions = new StringBuilder("Directions:\n");
-                    for (int i = 0; i < path.size() - 1; i++) {
-                        Location from = path.get(i);
-                        Location to = path.get(i + 1);
-                        int distance = graph.getAdjWeight(from, to);
-                        totalDistance += distance;
-                        String roadKey = from.getAbbv() + "-" + to.getAbbv();
-                        String roadName = screen.getRoadName(roadKey); // Get road name from Screen
-                        directions.append("Take ").append(from.getName()).append(" to ").append(to.getName())
-                                  .append(" via ").append(roadName).append(" - ").append(distance).append(" miles.\n");
-                    }
-                    directions.append("The total distance is ").append(totalDistance).append(" miles.");
-                    directionsArea.setText(directions.toString());
-                    screen.setPath(path, totalDistance);
-                } else {
-                    directionsArea.setText("Invalid start or end location.");
-                }
-            }
-        });
+        // Remove control panel initialization
 
         frame.pack();
         frame.setVisible(true);
