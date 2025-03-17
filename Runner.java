@@ -91,7 +91,15 @@ public class Runner {
         frame.setLayout(new BorderLayout());
         frame.add(screen, BorderLayout.CENTER);
 
-        // Remove control panel initialization
+        // Add JTextArea to display cities and abbreviations
+        JTextArea cityListArea = new JTextArea(20, 30);
+        cityListArea.setEditable(false);
+        StringBuilder cityList = new StringBuilder("Cities and Abbreviations:\n");
+        for (Location loc : graph.getVertices()) {
+            cityList.append(loc.getName()).append(" (").append(loc.getAbbv()).append(")\n");
+        }
+        cityListArea.setText(cityList.toString());
+        frame.add(new JScrollPane(cityListArea), BorderLayout.WEST);
 
         frame.pack();
         frame.setVisible(true);
