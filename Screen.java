@@ -4,8 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +11,10 @@ import java.awt.event.ActionListener;
 public class Screen extends JPanel {
     private BufferedImage image;
     private Graph<Location> graph;
-    private Map<Location, Point> positions;
+    private CustomHashMap<Location, Point> positions;
     private List<Location> path;
     private int totalDistance;
-    private Map<String, String> roadNames; // New map to store road names
+    private CustomHashMap<String, String> roadNames; // New map to store road names
 
     private JTextField startField;
     private JTextField endField;
@@ -25,7 +23,7 @@ public class Screen extends JPanel {
 
     public Screen(Graph<Location> graph) {
         this.graph = graph;
-        this.positions = new HashMap<>();
+        this.positions = new CustomHashMap<>();
         try {
             image = ImageIO.read(new File("germany.jpg"));
         } catch (IOException e) {
@@ -35,7 +33,7 @@ public class Screen extends JPanel {
         initializePositions();
         this.path = null;
         this.totalDistance = 0;
-        this.roadNames = new HashMap<>();
+        this.roadNames = new CustomHashMap<>();
         initializeRoadNames();
         initializeControls();
     }
@@ -186,7 +184,7 @@ public class Screen extends JPanel {
     }
 
     public String getRoadName(String roadKey) {
-        return roadNames.getOrDefault(roadKey, "");
+        return roadNames.get(roadKey);
     }
 
     @Override
@@ -225,7 +223,7 @@ public class Screen extends JPanel {
                         int midY = (p1.y + p2.y) / 2;
                         g.drawString(String.valueOf(graph.getAdjWeight(location, neighbor)), midX, midY);
                         String roadKey = location.getAbbv() + "-" + neighbor.getAbbv();
-                        String roadName = roadNames.getOrDefault(roadKey, "");
+                        String roadName = roadNames.get(roadKey);
                        // Display road name
                     }
                 }
@@ -246,7 +244,7 @@ public class Screen extends JPanel {
                 int midX = (p1.x + p2.x) / 2;
                 int midY = (p1.y + p2.y) / 2;
                 String roadKey = start.getAbbv() + "-" + end.getAbbv();
-                String roadName = roadNames.getOrDefault(roadKey, "Unknown Road");
+                String roadName = roadNames.get(roadKey);
                 g.drawString(roadName, midX, midY -15); // Display road name
             }
         }

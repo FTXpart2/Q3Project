@@ -1,19 +1,17 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 
 public class Graph<E> {
-    private HashMap<E, HashMap<E, Integer>> graph;
+    private CustomHashMap<E, CustomHashMap<E, Integer>> graph;
 
     public Graph() {
-        graph = new HashMap<>();
+        graph = new CustomHashMap<>();
     }
 
     public void addVertex(E vertex) {
         if (!graph.containsKey(vertex)) {
-            graph.put(vertex, new HashMap<>());
+            graph.put(vertex, new CustomHashMap<>());
         }
     }
 
@@ -28,9 +26,10 @@ public class Graph<E> {
 
     public void removeVertex(E vertex) {
         if (graph.containsKey(vertex)) {
-            for (E key : graph.get(graph.remove(vertex)).keySet()) {
+            for (E key : graph.get(vertex).keySet()) {
                 graph.get(key).remove(vertex);
             }
+            graph.remove(vertex);
         }
     }
 
@@ -54,7 +53,7 @@ public class Graph<E> {
         if (graph.containsKey(vertex)) {
             return graph.get(vertex).keySet();
         }
-        return new HashSet<>();
+        return new CustomHashSet<E>();
     }
 
     public String toString() {
@@ -77,10 +76,10 @@ public class Graph<E> {
             return null;
         }
 
-        HashMap<E, Integer> distance = new HashMap<>();
-        HashMap<E, E> prev = new HashMap<>();
-        HashSet<E> visited = new HashSet<>();
-        HashSet<E> unvisited = new HashSet<>();
+        CustomHashMap<E, Integer> distance = new CustomHashMap<>();
+        CustomHashMap<E, E> prev = new CustomHashMap<>();
+        CustomHashSet<E> visited = new CustomHashSet<>();
+        CustomHashSet<E> unvisited = new CustomHashSet<>();
 
         E current = a;
         distance.put(current, 0);
