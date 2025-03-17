@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 public class Screen extends JPanel {
     private BufferedImage image;
     private Graph<Location> graph;
-    private CustomHashMap<Location, Point> positions;
+    private MyHashMap<Location, Point> positions;
     private List<Location> path;
     private int totalDistance;
-    private CustomHashMap<String, String> roadNames; // New map to store road names
+    private MyHashMap<String, String> roadNames; // New map to store road names
 
     private JTextField startField;
     private JTextField endField;
@@ -23,7 +23,7 @@ public class Screen extends JPanel {
 
     public Screen(Graph<Location> graph) {
         this.graph = graph;
-        this.positions = new CustomHashMap<>();
+        this.positions = new MyHashMap<>();
         try {
             image = ImageIO.read(new File("germany.jpg"));
         } catch (IOException e) {
@@ -33,7 +33,7 @@ public class Screen extends JPanel {
         initializePositions();
         this.path = null;
         this.totalDistance = 0;
-        this.roadNames = new CustomHashMap<>();
+        this.roadNames = new MyHashMap<>();
         initializeRoadNames();
         initializeControls();
     }

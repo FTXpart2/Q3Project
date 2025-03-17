@@ -3,15 +3,15 @@ import java.util.Collections;
 import java.util.Set;
 
 public class Graph<E> {
-    private CustomHashMap<E, CustomHashMap<E, Integer>> graph;
+    private MyHashMap<E, MyHashMap<E, Integer>> graph;
 
     public Graph() {
-        graph = new CustomHashMap<>();
+        graph = new MyHashMap<>();
     }
 
     public void addVertex(E vertex) {
         if (!graph.containsKey(vertex)) {
-            graph.put(vertex, new CustomHashMap<>());
+            graph.put(vertex, new MyHashMap<>());
         }
     }
 
@@ -53,7 +53,7 @@ public class Graph<E> {
         if (graph.containsKey(vertex)) {
             return graph.get(vertex).keySet();
         }
-        return new CustomHashSet<E>();
+        return new MyHashSet<E>();
     }
 
     public String toString() {
@@ -76,10 +76,10 @@ public class Graph<E> {
             return null;
         }
 
-        CustomHashMap<E, Integer> distance = new CustomHashMap<>();
-        CustomHashMap<E, E> prev = new CustomHashMap<>();
-        CustomHashSet<E> visited = new CustomHashSet<>();
-        CustomHashSet<E> unvisited = new CustomHashSet<>();
+        MyHashMap<E, Integer> distance = new MyHashMap<>();
+        MyHashMap<E, E> prev = new MyHashMap<>();
+        MyHashSet<E> visited = new MyHashSet<>();
+        MyHashSet<E> unvisited = new MyHashSet<>();
 
         E current = a;
         distance.put(current, 0);

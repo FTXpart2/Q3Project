@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Collection;
 
-public class CustomHashSet<E> implements Set<E> {
+public class MyHashSet<E> implements Set<E> {
     private static final int INITIAL_CAPACITY = 16;
     private List<E>[] buckets;
 
-    public CustomHashSet() {
+    public MyHashSet() {
         buckets = new List[INITIAL_CAPACITY];
         for (int i = 0; i < INITIAL_CAPACITY; i++) {
             buckets[i] = new ArrayList<>();

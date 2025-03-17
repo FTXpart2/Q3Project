@@ -3,11 +3,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
-public class CustomHashMap<K, V> {
+public class MyHashMap<K, V> {
     private static final int INITIAL_CAPACITY = 16;
     private List<Entry<K, V>>[] buckets;
 
-    public CustomHashMap() {
+    public MyHashMap() {
         buckets = new List[INITIAL_CAPACITY];
         for (int i = 0; i < INITIAL_CAPACITY; i++) {
             buckets[i] = new ArrayList<>();
